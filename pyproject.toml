@@ -77,6 +77,7 @@ dependencies = [
     "bibtexparser",
     "tabulate>=0.9.0",
     "tqdm>=4.67.3",
+    "requests>=2.32.5",
 ]
 version = "2025.10.7"
 
