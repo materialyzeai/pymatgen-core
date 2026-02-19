@@ -1080,7 +1080,7 @@ class Composition(collections.abc.Hashable, collections.abc.Mapping, MSONable, S
 
         # Load prior probabilities of oxidation states, used to rank solutions
         if type(self).oxi_prob is None:
-            all_data = loadfn(f"{MODULE_DIR}/../analysis/icsd_bv.yaml")
+            all_data = loadfn(f"{MODULE_DIR}/icsd_bv.yaml")
             type(self).oxi_prob = {Species.from_str(sp): data for sp, data in all_data["occurrence"].items()}
         oxi_states_override = oxi_states_override or {}
         # Assert Composition only has integer amounts

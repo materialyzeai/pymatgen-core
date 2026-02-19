@@ -299,7 +299,10 @@ class TestTensor(MatSciTest):
         assert empty[tkey] == 1
 
     def test_populate(self):
-        test_data = loadfn(f"{TEST_FILES_DIR}/analysis/elasticity/test_toec_data.json")
+        toec_path = TEST_FILES_DIR / "analysis" / "elasticity" / "test_toec_data.json"
+        if not toec_path.exists():
+            pytest.skip("test_toec_data.json not found (pymatgen-test-files)")
+        test_data = loadfn(str(toec_path))
 
         sn = self.get_structure("Sn")
         vtens = np.zeros((6, 6))

@@ -9,7 +9,9 @@ from numpy.testing import assert_allclose
 from pytest import approx
 
 import pymatgen.core
-from pymatgen.analysis.structure_matcher import StructureMatcher
+
+from pymatgen.core.structure_matcher import StructureMatcher
+
 from pymatgen.core import Lattice, Structure
 from pymatgen.core.surface import (
     ReconstructionGenerator,

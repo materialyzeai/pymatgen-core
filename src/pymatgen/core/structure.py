@@ -1604,7 +1604,7 @@ class IStructure(SiteCollection, MSONable):
         Returns:
             bool: True if the structures are similar under some affine transformation.
         """
-        from pymatgen.analysis.structure_matcher import StructureMatcher
+        from .structure_matcher import StructureMatcher
 
         matcher = StructureMatcher(**kwargs)
         if anonymous:

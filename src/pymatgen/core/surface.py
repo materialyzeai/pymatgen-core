@@ -29,8 +29,8 @@ from monty.fractions import lcm
 from scipy.cluster.hierarchy import fcluster, linkage
 from scipy.spatial.distance import squareform
 
-from pymatgen.analysis.structure_matcher import StructureMatcher
 from pymatgen.core import Lattice, PeriodicSite, Structure, get_el_sp
+from pymatgen.core.structure_matcher import StructureMatcher
 from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
 from pymatgen.util.coord import in_coord_list
 from pymatgen.util.due import Doi, due
@@ -343,7 +343,7 @@ class Slab(Structure):
             than one inequivalent site. This will allow us to use this for
             compound systems.
         """
-        from pymatgen.analysis.local_env import VoronoiNN
+        from .local_env import VoronoiNN
 
         # Get a dictionary of coordination numbers for each distinct site in the structure
         spg_analyzer = SpacegroupAnalyzer(self.oriented_unit_cell)
