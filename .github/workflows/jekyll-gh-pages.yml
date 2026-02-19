@@ -20,7 +20,7 @@ concurrency:
 jobs:
   build:
     # prevent this action from running on forks
-    if: github.repository == 'materialsproject/pymatgen'
+    if: github.repository == 'materialyzeai/pymatgen-core'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
