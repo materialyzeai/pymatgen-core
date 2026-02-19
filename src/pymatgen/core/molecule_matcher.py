@@ -95,7 +95,7 @@ class AbstractMolAtomMapper(MSONable, abc.ABC):
         for trans_modules in ["molecule_matcher"]:
             level = 0  # Python 3.x
             mod = __import__(
-                f"pymatgen.analysis.{trans_modules}",
+                f"pymatgen.core.{trans_modules}",
                 globals(),
                 locals(),
                 [dct["@class"]],
@@ -266,7 +266,8 @@ class InchiMolAtomMapper(AbstractMolAtomMapper):
 
         Args:
             mol: The molecule. OpenBabel OBMol object
-            ilabel: inchi label map
+            ilabels: inchi label map
+            group_atoms: Group of atoms to calculate centroid for
 
         Returns:
             Centroid. Tuple (x, y, z)
@@ -616,7 +617,7 @@ class MoleculeMatcher(MSONable):
                 object
             clabel1: The atom indices that can reorder the first molecule to
                 uniform atom order
-            clabel1: The atom indices that can reorder the second molecule to
+            clabel2: The atom indices that can reorder the second molecule to
                 uniform atom order
 
         Returns:

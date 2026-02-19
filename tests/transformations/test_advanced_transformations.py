@@ -9,8 +9,8 @@ from monty.serialization import loadfn
 from numpy.testing import assert_allclose, assert_array_equal
 from pytest import approx
 
-from pymatgen.analysis.energy_models import IsingModel, SymmetryModel
 from pymatgen.core import Lattice, Molecule, Species, Structure
+from pymatgen.core.energy_models import IsingModel, SymmetryModel
 from pymatgen.core.interface import GrainBoundaryGenerator
 from pymatgen.core.surface import SlabGenerator
 from pymatgen.io.icet import ClusterSpace
@@ -53,7 +53,7 @@ def get_table():
     initialization time, and make unit tests insensitive to changes in the
     default lambda table.
     """
-    json_path = f"{TEST_FILES_DIR}/analysis/struct_predictor/test_lambda.json"
+    json_path = f"{TEST_FILES_DIR}/struct_predictor/test_lambda.json"
     with open(json_path, "rb") as file:
         return orjson.loads(file.read())
 

@@ -6,9 +6,9 @@ import numpy as np
 import pytest
 from numpy.testing import assert_allclose
 
-from pymatgen.analysis.graphs import MoleculeGraph
-from pymatgen.analysis.local_env import OpenBabelNN
 from pymatgen.core import Molecule
+from pymatgen.core.graphs import MoleculeGraph
+from pymatgen.core.local_env import OpenBabelNN
 from pymatgen.io.openff import (
     add_conformer,
     assign_partial_charges,

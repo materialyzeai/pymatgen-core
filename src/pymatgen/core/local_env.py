@@ -37,8 +37,8 @@ except Exception:
 if TYPE_CHECKING:
     from typing import Any, Self, TypeAlias
 
-    from pymatgen.analysis.graphs import MoleculeGraph
     from pymatgen.core.composition import SpeciesLike
+    from pymatgen.core.graphs import MoleculeGraph
 
 
 __author__ = "Shyue Ping Ong, Geoffroy Hautier, Sai Jayaraman, "
@@ -486,14 +486,14 @@ class NearNeighbors:
         """Private method for computing the neighbor shell information.
 
         Args:
-            structure (Structure) - Structure being assessed
-            all_nn_info ([[dict]]) - Results from `get_all_nn_info`
-            site_idx (int) - index of site for which to determine neighbor
+            structure (Structure): Structure being assessed
+            all_nn_info ([[dict]]): Results from `get_all_nn_info`
+            site_idx (int): index of site for which to determine neighbor
                 information.
-            shell (int) - Which neighbor shell to retrieve (1 == 1st NN shell)
-            _previous_steps ({(site_idx, image}) - Internal use only: Set of
+            shell (int): Which neighbor shell to retrieve (1 == 1st NN shell)
+            _previous_steps ({(site_idx, image}): Internal use only: Set of
                 sites that have already been traversed.
-            _cur_image (tuple) - Internal use only Image coordinates of current atom
+            _cur_image (tuple): Internal use only Image coordinates of current atom
 
         Returns:
             list of dictionaries. Each entry in the list is information about
@@ -619,7 +619,7 @@ class NearNeighbors:
             decorate (bool): whether to annotate site properties with order parameters using neighbors
                 determined by this NearNeighbor class
             weights (bool): whether to include edge weights from NearNeighbor class in StructureGraph
-            edge_properties (bool) whether to include further edge properties from NearNeighbor class in StructureGraph
+            edge_properties (bool): whether to include further edge properties from NearNeighbor class in StructureGraph
             on_disorder ('take_majority_strict' | 'take_majority_drop' | 'take_max_species' | 'error'):
                 What to do when encountering a disordered structure. 'error' will raise ValueError.
                 'take_majority_strict' will use the majority specie on each site and raise
@@ -629,7 +629,7 @@ class NearNeighbors:
                 'take_max_species' will use Fe as the site specie.
 
         Returns:
-            StructureGraph: object from pymatgen.analysis.graphs
+            StructureGraph: object from pymatgen.core.graphs
         """
         structure = _handle_disorder(structure, on_disorder)
 
@@ -715,10 +715,10 @@ class VoronoiNN(NearNeighbors):
                 atoms. Defaults to 13.0.
             allow_pathological (bool): whether to allow infinite vertices in
                 determination of Voronoi coordination.
-            weight (string) - Statistic used to weigh neighbors (see the statistics
+            weight (string): Statistic used to weigh neighbors (see the statistics
                 available in get_voronoi_polyhedra)
-            extra_nn_info (bool) - Add all polyhedron info to `get_nn_info`
-            compute_adj_neighbors (bool) - Whether to compute which neighbors are
+            extra_nn_info (bool): Add all polyhedron info to `get_nn_info`
+            compute_adj_neighbors (bool): Whether to compute which neighbors are
                 adjacent. Turn off for faster performance.
         """
         super().__init__()
@@ -868,11 +868,11 @@ class VoronoiNN(NearNeighbors):
         """Get the information about a certain atom from the results of a tessellation.
 
         Args:
-            site_idx (int) - Index of the atom in question
-            sites ([Site]) - List of all sites in the tessellation
-            targets ([Element]) - Target elements
-            voro - Output of qvoronoi
-            compute_adj_neighbors (boolean) - Whether to compute which neighbors are adjacent
+            site_idx (int): Index of the atom in question
+            sites ([Site]): List of all sites in the tessellation
+            targets ([Element]): Target elements
+            voro: Output of qvoronoi
+            compute_adj_neighbors (boolean): Whether to compute which neighbors are adjacent
 
         Returns:
             A dict of sites sharing a common Voronoi facet. Key is facet id
@@ -1180,7 +1180,7 @@ def _is_in_targets(site, targets):
 
     Args:
         site (Site): Site to assess
-        targets ([Element]) List of elements
+        targets ([Element]): List of elements
 
     Returns:
         bool: Whether this site contains a certain list of elements
@@ -1523,10 +1523,10 @@ class OpenBabelNN(NearNeighbors):
             this NearNeighbor class
 
         Returns:
-            MoleculeGraph: object from pymatgen.analysis.graphs
+            MoleculeGraph: object from pymatgen.core.graphs
         """
         # requires optional dependency which is why it's not a top-level import
-        from pymatgen.analysis.graphs import MoleculeGraph
+        from pymatgen.core.graphs import MoleculeGraph
 
         if decorate:
             # Decorate all sites in the underlying structure
@@ -1678,10 +1678,10 @@ class CovalentBondNN(NearNeighbors):
             this NearNeighbor class
 
         Returns:
-            MoleculeGraph: object from pymatgen.analysis.graphs
+            MoleculeGraph: object from pymatgen.core.graphs
         """
         # requires optional dependency which is why it's not a top-level import
-        from pymatgen.analysis.graphs import MoleculeGraph
+        from pymatgen.core.graphs import MoleculeGraph
 
         if decorate:
             # Decorate all sites in the underlying structure
@@ -2018,7 +2018,8 @@ def get_okeeffe_distance_prediction(el1, el2):
     'okeeffe_params.json'.
 
     Args:
-        el1, el2 (Element): two Element objects
+        el1 (Element): First element.
+        el2 (Element): Second element.
 
     Returns:
         a float value of the predicted bond length
@@ -3503,7 +3504,7 @@ class BrunnerNNReciprocal(NearNeighbors):
 
 @deprecated(BrunnerNNReciprocal, "Deprecated on 2024-03-29.", deadline=(2025, 3, 29))
 class BrunnerNN_reciprocal(BrunnerNNReciprocal):
-    pass
+    """Deprecated alias for BrunnerNNReciprocal."""
 
 
 class BrunnerNNRelative(NearNeighbors):
@@ -3579,7 +3580,7 @@ class BrunnerNNRelative(NearNeighbors):
 
 @deprecated(BrunnerNNRelative, "Deprecated on 2024-03-29.", deadline=(2025, 3, 29))
 class BrunnerNN_relative(BrunnerNNRelative):
-    pass
+    """Deprecated alias for BrunnerNNRelative."""
 
 
 class BrunnerNNReal(NearNeighbors):
@@ -3655,7 +3656,7 @@ class BrunnerNNReal(NearNeighbors):
 
 @deprecated(BrunnerNNReal, "Deprecated on 2024-03-29.", deadline=(2025, 3, 29))
 class BrunnerNN_real(BrunnerNNReal):
-    pass
+    """Deprecated alias for BrunnerNNReal."""
 
 
 class EconNN(NearNeighbors):
@@ -3850,6 +3851,14 @@ class CrystalNN(NearNeighbors):
     """
 
     class NNData(NamedTuple):
+        """Data structure for neighbor information.
+
+        Args:
+            all_nninfo: All neighbor information.
+            cn_weights: Coordination number weights.
+            cn_nninfo: Coordination number neighbor information.
+        """
+
         all_nninfo: list
         cn_weights: dict
         cn_nninfo: dict
@@ -4097,6 +4106,7 @@ class CrystalNN(NearNeighbors):
                 on each site. For {{Fe: 0.4, O: 0.4, C: 0.2}}, 'error' and 'take_majority_strict'
                 will raise ValueError, while 'take_majority_drop' ignores this site altogether and
                 'take_max_species' will use Fe as the site specie.
+            **kwargs: Additional keyword arguments.
 
         Returns:
             float: coordination number.
@@ -4117,6 +4127,7 @@ class CrystalNN(NearNeighbors):
                 to use weights for computing the coordination number
                 or not (False, default: each coordinated site has equal
                 weight).
+            **kwargs: Additional keyword arguments.
 
         Returns:
             dict[int, list[dict]]: coordination number and list of coordinated sites
@@ -4473,7 +4484,7 @@ def metal_edge_extender(
     """Identify and add missed coordinate bond edges for metals.
 
     Args:
-        mol_graph: pymatgen.analysis.graphs.MoleculeGraph object
+        mol_graph: pymatgen.core.graphs.MoleculeGraph object
         cutoff: cutoff in Angstrom. Metal-coordinator sites that are closer
             together than this value will be considered coordination bonds.
             If the MoleculeGraph contains a metal, but no coordination bonds are found
@@ -4489,7 +4500,7 @@ def metal_edge_extender(
             used in the LIBE dataset.
 
     Returns:
-        mol_graph: pymatgen.analysis.graphs.MoleculeGraph object with additional
+        mol_graph: pymatgen.core.graphs.MoleculeGraph object with additional
             metal bonds (if any found) added
     """
     if metals is None:

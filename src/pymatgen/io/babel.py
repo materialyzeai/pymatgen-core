@@ -23,7 +23,7 @@ except Exception:
 if TYPE_CHECKING:
     from typing import Self
 
-    from pymatgen.analysis.graphs import MoleculeGraph
+    from pymatgen.core.graphs import MoleculeGraph
 
 
 __author__ = "Shyue Ping Ong, Qi Wang"

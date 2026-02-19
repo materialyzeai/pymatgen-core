@@ -8,8 +8,8 @@ from subprocess import TimeoutExpired
 import numpy as np
 import pytest
 
-from pymatgen.analysis.molecule_matcher import MoleculeMatcher
 from pymatgen.core import Molecule
+from pymatgen.core.molecule_matcher import MoleculeMatcher
 from pymatgen.io.packmol import PackmolBoxGen
 from pymatgen.util.testing import TEST_FILES_DIR, MatSciTest
 

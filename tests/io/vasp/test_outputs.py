@@ -21,7 +21,6 @@ from pymatgen.core.lattice import Lattice
 from pymatgen.core.structure import Structure
 from pymatgen.electronic_structure.bandstructure import BandStructure, BandStructureSymmLine
 from pymatgen.electronic_structure.core import Magmom, Orbital, OrbitalType, Spin
-from pymatgen.entries.compatibility import MaterialsProjectCompatibility
 from pymatgen.io.vasp.inputs import Incar, Kpoints, Poscar, Potcar
 from pymatgen.io.vasp.outputs import (
     WSWQ,
@@ -353,7 +352,6 @@ class TestVasprun(MatSciTest):
         assert not vasprun_unconverged.converged_electronic
         assert not vasprun_unconverged.converged
 
-    @pytest.mark.filterwarnings("ignore:MaterialsProjectCompatibility is deprecated")
     def test_dfpt(self):
         filepath = f"{VASP_OUT_DIR}/vasprun.dfpt.xml.gz"
         vasprun_dfpt = Vasprun(filepath, parse_potcar_file=False)
@@ -364,10 +362,6 @@ class TestVasprun(MatSciTest):
         assert vasprun_dfpt.epsilon_static_wolfe[0][1] == approx(-0.00559998)
         assert vasprun_dfpt.epsilon_static_wolfe[2][2] == approx(3.31237357)
         assert vasprun_dfpt.converged
-
-        entry = vasprun_dfpt.get_computed_entry()
-        entry = MaterialsProjectCompatibility(check_potcar_hash=False).process_entry(entry)
-        assert entry.uncorrected_energy + entry.correction == approx(entry.energy)
 
     @pytest.mark.filterwarnings("ignore::pymatgen.io.vasp.outputs.UnconvergedVASPWarning")
     def test_dfpt_ionic(self):

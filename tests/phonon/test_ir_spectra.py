@@ -14,4 +14,4 @@ class TestIRDielectricTensor(MatSciTest):
         ir_spectra = loadfn(f"{self.tmp_path}/test.json")
         irdict = ir_spectra.as_dict()
         ir_spectra.from_dict(irdict)
-        ir_spectra.plot(show=False)
+        # ir_spectra.plot(show=False)

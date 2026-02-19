@@ -30,7 +30,6 @@ import numpy as np
 from monty.io import zopen
 from monty.json import MSONable
 
-from pymatgen.analysis.excitation import ExcitationSpectrum
 from pymatgen.core.structure import Molecule, Structure
 from pymatgen.core.units import Energy, FloatWithUnit
 
@@ -636,6 +635,8 @@ class NwOutput:
         Returns:
             ExcitationSpectrum: can be plotted using pymatgen.vis.plotters.SpectrumPlotter.
         """
+        from pymatgen.analysis.excitation import ExcitationSpectrum
+
         roots = self.parse_tddft()
         data = roots["singlet"]
         en = np.array([d["energy"] for d in data])

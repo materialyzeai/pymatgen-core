@@ -15,8 +15,8 @@ from typing import TYPE_CHECKING
 import numpy as np
 from monty.json import MSONable
 
-from pymatgen.analysis.ewald import EwaldMinimizer, EwaldSummation
-from pymatgen.analysis.local_env import MinimumDistanceNN
+from pymatgen.core.ewald import EwaldMinimizer, EwaldSummation
+from pymatgen.core.local_env import MinimumDistanceNN
 from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
 from pymatgen.transformations.transformation_abc import AbstractTransformation
 
@@ -260,6 +260,7 @@ class PartialRemoveSitesTransformation(AbstractTransformation):
         self.logger.debug("Performing best first ordering")
         start_time = time.perf_counter()
         self.logger.debug("Performing initial Ewald sum...")
+
         ewald_sum = EwaldSummation(structure)
         self.logger.debug(f"Ewald sum took {time.perf_counter() - start_time} seconds.")
         start_time = time.perf_counter()
@@ -301,6 +302,7 @@ class PartialRemoveSitesTransformation(AbstractTransformation):
         tested_sites: list[list[PeriodicSite]] = []
         start_time = time.perf_counter()
         self.logger.debug("Performing initial Ewald sum...")
+
         ewald_sum = EwaldSummation(structure)
         self.logger.debug(f"Ewald sum took {time.perf_counter() - start_time} seconds.")
         start_time = time.perf_counter()

@@ -7,9 +7,9 @@ from pathlib import Path
 
 import numpy as np
 
-from pymatgen.analysis.graphs import MoleculeGraph
-from pymatgen.analysis.local_env import OpenBabelNN, metal_edge_extender
 from pymatgen.core import Element, Molecule
+from pymatgen.core.graphs import MoleculeGraph
+from pymatgen.core.local_env import OpenBabelNN, metal_edge_extender
 
 try:
     import openff.toolkit as tk

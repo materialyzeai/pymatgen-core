@@ -6,8 +6,8 @@ import numpy as np
 import pytest
 from pytest import approx
 
-from pymatgen.analysis.structure_matcher import StructureMatcher
 from pymatgen.core import Composition, DummySpecies, Element, Lattice, Species, Structure, SymmOp
+from pymatgen.core.structure_matcher import StructureMatcher
 from pymatgen.electronic_structure.core import Magmom
 from pymatgen.io.cif import CifBlock, CifParser, CifWriter
 from pymatgen.symmetry.structure import SymmetrizedStructure

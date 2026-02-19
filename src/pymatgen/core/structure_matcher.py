@@ -36,10 +36,9 @@ def get_linear_assignment_solution(cost_matrix: np.ndarray):
     """Wrapper for SciPy's linear_sum_assignment.
 
     Args:
-        costs: The cost matrix of the problem. cost[i,j] should be the
+        cost_matrix: The cost matrix of the problem. cost[i,j] should be the
             cost of matching x[i] to y[j]. The cost matrix may be
             rectangular
-        epsilon: Tolerance for determining if solution vector is < 0
 
     Returns:
         min_cost: The minimum cost of the matching.
@@ -139,7 +138,7 @@ class AbstractComparator(MSONable, abc.ABC):
         """
         for trans_modules in ["structure_matcher"]:
             mod = __import__(
-                f"pymatgen.analysis.{trans_modules}",
+                f"pymatgen.core.{trans_modules}",
                 globals(),
                 locals(),
                 [dct["@class"]],

@@ -61,10 +61,6 @@ jobs:
             resolution: highest
             extras: prototypes,optional
 
-        # pytest-split automatically distributes work load so parallel jobs finish in similar time
-        # update durations file with `pytest --store-durations --durations-path tests/files/.pytest-split-durations`
-        split: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
     runs-on: ${{ matrix.config.os }}
     env:
       OPT_BIN_DIR: ${{ github.workspace }}/opt/bin # for optional Ubuntu dependencies
@@ -111,13 +107,11 @@ jobs:
         if: (matrix.config.os == 'ubuntu-latest' || matrix.config.os == 'macos-latest') && steps.optbin-cache.outputs.cache-hit != 'true'
         run: bash .github/workflows/_install_opt_unit_deps.sh "$OPT_BIN_DIR"
 
-      - name: pytest split ${{ matrix.split }}
+      - name: pytest
         env:
           MPLBACKEND: Agg # non-interactive backend for matplotlib
           PMG_MAPI_KEY: ${{ secrets.PMG_MAPI_KEY }}
           PMG_TEST_FILES_DIR: "${{ github.workspace }}/pymatgen-test-files"
           PYTHONWARNDEFAULTENCODING: "true" # PEP 597: Enable optional EncodingWarning
         run: |
-          pytest tests \
-            -n auto --splits 10 --group ${{ matrix.split }} \
-            --durations-path tests/files/.pytest-split-durations \
+          pytest tests -n auto

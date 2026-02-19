@@ -39,8 +39,8 @@ if TYPE_CHECKING:
     from igraph import Graph
     from numpy.typing import ArrayLike
 
-    from pymatgen.analysis.local_env import NearNeighbors
     from pymatgen.core import Species
+    from pymatgen.core.local_env import NearNeighbors
 
 
 logger = logging.getLogger(__name__)
@@ -55,6 +55,16 @@ __date__ = "August 2017"
 
 
 class ConnectedSite(NamedTuple):
+    """A connected site with its periodic image information.
+
+    Args:
+        site: The periodic site.
+        jimage: The periodic image tuple.
+        index: The site index.
+        weight: The connection weight.
+        dist: The distance.
+    """
+
     site: PeriodicSite
     jimage: tuple[int, int, int]
     index: Any  # TODO: use more specific type
@@ -205,6 +215,7 @@ class StructureGraph(MSONable):
     @classmethod
     @deprecated(from_empty_graph, "Deprecated on 2024-03-29.", deadline=(2025, 3, 20))
     def with_empty_graph(cls, *args, **kwargs):
+        """Deprecated method. Use from_empty_graph instead."""
         return cls.from_empty_graph(*args, **kwargs)
 
     @classmethod
@@ -276,11 +287,11 @@ class StructureGraph(MSONable):
     ) -> Self:
         """
         Constructor for StructureGraph, using a strategy
-        from pymatgen.analysis.local_env.
+        from pymatgen.core.local_env.
 
         Args:
             structure: Structure object
-            strategy: an instance of a pymatgen.analysis.local_env.NearNeighbors object
+            strategy: an instance of a pymatgen.core.local_env.NearNeighbors object
             weights(bool): if True, use weights from local_env class (consult relevant class for their meaning)
             edge_properties(bool): if True, edge_properties from neighbors will be used
         """
@@ -310,6 +321,7 @@ class StructureGraph(MSONable):
     @classmethod
     @deprecated(from_local_env_strategy, "Deprecated on 2024-03-29.", deadline=(2025, 3, 20))
     def with_local_env_strategy(cls, *args, **kwargs):
+        """Deprecated method. Use from_local_env_strategy instead."""
         return cls.from_local_env_strategy(*args, **kwargs)
 
     @property
@@ -679,7 +691,7 @@ class StructureGraph(MSONable):
                     directionality to connect the atoms.
                 2. A string name. The molecule will be obtained from the
                     relevant template in func_groups.json.
-            strategy: Class from pymatgen.analysis.local_env.
+            strategy: Class from pymatgen.core.local_env.
             bond_order: A specified bond order to calculate the bond
                 length between the attached functional group and the nearest
                 neighbor site. Defaults to 1.
@@ -687,7 +699,7 @@ class StructureGraph(MSONable):
                 group (format: {(u, v): props}, where props is a dictionary of
                 properties, including weight. If None, then the algorithm
                 will attempt to automatically determine bonds using one of
-                a list of strategies defined in pymatgen.analysis.local_env.
+                a list of strategies defined in pymatgen.core.local_env.
             strategy_params: dictionary of keyword arguments for strategy.
                 If None, default parameters will be used.
         """
@@ -1610,7 +1622,7 @@ class MoleculeGraph(MSONable):
         that correspond to Sites in Molecule).
 
         Args:
-            molecule (Molecule):
+            molecule (Molecule): Molecule to create graph from.
             name (str): name of graph, e.g. "bonds"
             edge_weight_name (str): name of edge weights,
                 e.g. "bond_length" or "exchange_constant"
@@ -1645,6 +1657,7 @@ class MoleculeGraph(MSONable):
     @classmethod
     @deprecated(from_empty_graph, "Deprecated on 2024-03-29.", deadline=(2025, 3, 20))
     def with_empty_graph(cls, *args, **kwargs):
+        """Deprecated method. Use from_empty_graph instead."""
         return cls.from_empty_graph(*args, **kwargs)
 
     @classmethod
@@ -1694,17 +1707,18 @@ class MoleculeGraph(MSONable):
     @classmethod
     @deprecated(from_edges, "Deprecated on 2024-03-29.", deadline=(2025, 3, 20))
     def with_edges(cls, *args, **kwargs):
+        """Deprecated method. Use from_edges instead."""
         return cls.from_edges(*args, **kwargs)
 
     @classmethod
     def from_local_env_strategy(cls, molecule, strategy) -> Self:
         """
         Constructor for MoleculeGraph, using a strategy
-        from pymatgen.analysis.local_env.
+        from pymatgen.core.local_env.
 
             molecule: Molecule object
             strategy: an instance of a
-                pymatgen.analysis.local_env.NearNeighbors object
+                pymatgen.core.local_env.NearNeighbors object
 
         Returns:
             mg, a MoleculeGraph
@@ -1763,6 +1777,7 @@ class MoleculeGraph(MSONable):
     @classmethod
     @deprecated(from_local_env_strategy, "Deprecated on 2024-03-29.", deadline=(2025, 3, 20))
     def with_local_env_strategy(cls, *args, **kwargs):
+        """Deprecated method. Use from_local_env_strategy instead."""
         return cls.from_local_env_strategy(*args, **kwargs)
 
     @property
@@ -2208,7 +2223,7 @@ class MoleculeGraph(MSONable):
                 2. A string name. The molecule will be obtained from the
                     relevant template in func_groups.json.
                 3. A MoleculeGraph object.
-            strategy: Class from pymatgen.analysis.local_env.
+            strategy: Class from pymatgen.core.local_env.
             bond_order: A specified bond order to calculate the bond
                 length between the attached functional group and the nearest
                 neighbor site. Defaults to 1.
@@ -2216,7 +2231,7 @@ class MoleculeGraph(MSONable):
                 group (format: {(u, v): props}, where props is a dictionary of
                 properties, including weight. If None, then the algorithm
                 will attempt to automatically determine bonds using one of
-                a list of strategies defined in pymatgen.analysis.local_env.
+                a list of strategies defined in pymatgen.core.local_env.
             strategy_params: dictionary of keyword arguments for strategy.
                 If None, default parameters will be used.
         """
@@ -2322,7 +2337,7 @@ class MoleculeGraph(MSONable):
                 2. A string name. The molecule will be obtained from the
                 relevant template in func_groups.json.
                 3. A MoleculeGraph object.
-            strategy: Class from pymatgen.analysis.local_env.
+            strategy: Class from pymatgen.core.local_env.
             bond_order: A specified bond order to calculate the bond
                 length between the attached functional group and the nearest
                 neighbor site. Defaults to 1.
@@ -2330,7 +2345,7 @@ class MoleculeGraph(MSONable):
                 group (format: {(u, v): props}, where props is a dictionary of
                 properties, including weight. If None, then the algorithm
                 will attempt to automatically determine bonds using one of
-                a list of strategies defined in pymatgen.analysis.local_env.
+                a list of strategies defined in pymatgen.core.local_env.
             strategy_params: dictionary of keyword arguments for strategy.
                 If None, default parameters will be used.
         """
@@ -2531,6 +2546,8 @@ class MoleculeGraph(MSONable):
         """
         if not which(algo):
             raise RuntimeError("StructureGraph graph drawing requires GraphViz binaries to be in the path.")
+
+        from pymatgen.vis.structure_vtk import EL_COLORS
 
         # Developer note: NetworkX also has methods for drawing
         # graphs using matplotlib, these also work here. However,

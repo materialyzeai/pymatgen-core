@@ -6,8 +6,8 @@ import platform
 import pytest
 from pytest import approx
 
-from pymatgen.analysis.graphs import MoleculeGraph
-from pymatgen.analysis.molecule_matcher import MoleculeMatcher
+from pymatgen.core.graphs import MoleculeGraph
+from pymatgen.core.molecule_matcher import MoleculeMatcher
 from pymatgen.core.structure import Molecule
 from pymatgen.io.babel import BabelMolAdaptor
 from pymatgen.io.xyz import XYZ

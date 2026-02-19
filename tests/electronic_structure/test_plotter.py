@@ -14,15 +14,12 @@ from pytest import approx
 from pymatgen.core.structure import Structure
 from pymatgen.electronic_structure.bandstructure import BandStructureSymmLine
 from pymatgen.electronic_structure.boltztrap import BoltztrapAnalyzer
-from pymatgen.electronic_structure.cohp import CompleteCohp
-from pymatgen.electronic_structure.core import Spin
 from pymatgen.electronic_structure.dos import CompleteDos
 from pymatgen.electronic_structure.plotter import (
     BoltztrapPlotter,
     BSDOSPlotter,
     BSPlotter,
     BSPlotterProjected,
-    CohpPlotter,
     DosPlotter,
     fold_point,
     plot_brillouin_zone,
@@ -441,112 +438,3 @@ class TestBoltztrapPlotter:
         assert ax.get_lines()[0].get_data()[0][0] == approx(100), "wrong 0 data in line 0"
         assert ax.get_lines()[0].get_data()[1][0] == approx(4.060682863129955e-05), "wrong 1 data in line 0"
         plt.close()
-
-
-class TestCohpPlotter(MatSciTest):
-    def setup_method(self):
-        path = f"{TEST_FILES_DIR}/electronic_structure/cohp/complete_cohp_lobster.json"
-        with open(path, "rb") as file:
-            self.cohp = CompleteCohp.from_dict(orjson.loads(file.read()))
-        path = f"{TEST_FILES_DIR}/electronic_structure/cohp/complete_coop_lobster.json"
-        with open(path, "rb") as file:
-            self.coop = CompleteCohp.from_dict(orjson.loads(file.read()))
-        self.cohp_plot = CohpPlotter(zero_at_efermi=False)
-        self.coop_plot = CohpPlotter(are_coops=True)
-
-    def test_attributes(self):
-        assert not self.cohp_plot.are_coops
-        assert self.coop_plot.are_coops
-        assert not self.cohp_plot.zero_at_efermi
-        assert self.coop_plot.zero_at_efermi
-        self.cohp_plot.add_cohp_dict(self.cohp.all_cohps)
-        cohp_energies = self.cohp_plot._cohps["1"]["energies"]
-        assert len(cohp_energies) == 301
-        assert cohp_energies[0] == approx(-0.27768)
-        assert cohp_energies[-1] == approx(14.77248)
-        self.coop_plot.add_cohp_dict(self.coop.all_cohps)
-        coop_energies = self.coop_plot._cohps["10"]["energies"]
-        assert len(coop_energies) == 241
-        assert coop_energies[0] == approx(-6.02510)
-        assert coop_energies[-1] == approx(6.02510)
-
-    def test_add_cohp_dict(self):
-        # Sorts the populations by z-coordinates of the sites
-        def sortkeys(sites):
-            return sites[0].z, sites[1].z
-
-        sorted_keys = ["3", "4", "7", "8", "9", "10", "11", "6", "5", "2", "1"]
-
-        d_coop = self.coop_plot.get_cohp_dict()
-        assert len(d_coop) == 0
-        bonds = self.coop.bonds
-        self.coop_plot.add_cohp_dict(self.coop.all_cohps, key_sort_func=lambda x: sortkeys(bonds[x]["sites"]))
-        d_coop = self.coop_plot.get_cohp_dict()
-        assert len(d_coop) == 11
-        assert list(self.coop_plot._cohps) == sorted_keys
-
-    def test_get_cohp_dict(self):
-        self.cohp_plot.add_cohp_dict(self.cohp.all_cohps)
-        d_cohp = self.cohp_plot.get_cohp_dict()
-        for bond in ["1", "2"]:
-            assert bond in d_cohp
-
-    def test_get_plot(self):
-        self.cohp_plot.add_cohp_dict(self.cohp.all_cohps)
-        ax_cohp = self.cohp_plot.get_plot()
-
-        assert ax_cohp.get_xlabel() == "-COHP"
-        assert ax_cohp.get_ylabel() == "$E$ (eV)"
-        legend_labels = ax_cohp.get_legend_handles_labels()[1]
-        assert len(self.cohp_plot._cohps) == len(legend_labels)
-        assert ax_cohp.lines[0].get_linestyle() == "-"
-        assert ax_cohp.lines[1].get_linestyle() == "--"
-        for label in legend_labels:
-            assert label in self.cohp_plot._cohps
-        lines_index = legend_labels.index("1")
-        line_styles = {Spin.up: "-", Spin.down: "--"}
-        cohp_fe_fe = self.cohp.all_cohps["1"]
-        for s, spin in enumerate([Spin.up, Spin.down]):
-            lines = ax_cohp.lines[2 * lines_index + s]
-            assert_allclose(lines.get_xdata(), -cohp_fe_fe.cohp[spin])
-            assert_allclose(lines.get_ydata(), self.cohp.energies)
-            assert lines.get_linestyle() == line_styles[spin]
-        plt.close()
-
-        ax_cohp = self.cohp_plot.get_plot(invert_axes=False, plot_negative=False)
-
-        assert ax_cohp.get_xlabel() == "$E$ (eV)"
-        assert ax_cohp.get_ylabel() == "COHP"
-        for s, spin in enumerate([Spin.up, Spin.down]):
-            lines = ax_cohp.lines[2 * lines_index + s]
-            assert_allclose(lines.get_xdata(), self.cohp.energies)
-            assert_allclose(lines.get_ydata(), cohp_fe_fe.cohp[spin])
-        plt.close()
-
-        ax_cohp = self.cohp_plot.get_plot(integrated=True)
-
-        assert ax_cohp.get_xlabel() == "-ICOHP (eV)"
-        for s, spin in enumerate([Spin.up, Spin.down]):
-            lines = ax_cohp.lines[2 * lines_index + s]
-            assert_allclose(lines.get_xdata(), -cohp_fe_fe.icohp[spin])
-
-        coop_dict = {"Bi5-Bi6": self.coop.all_cohps["10"]}
-        self.coop_plot.add_cohp_dict(coop_dict)
-        ax_coop = self.coop_plot.get_plot()
-        assert ax_coop.get_xlabel() == "COOP"
-        assert ax_coop.get_ylabel() == "$E - E_f$ (eV)"
-        lines_coop = ax_coop.get_lines()[0]
-        assert_allclose(lines_coop.get_ydata(), self.coop.energies - self.coop.efermi)
-        coop_bi_bi = self.coop.all_cohps["10"].cohp[Spin.up]
-        assert_allclose(lines_coop.get_xdata(), coop_bi_bi)
-
-        # cleanup
-        plt.close("all")
-
-    def test_save_plot(self):
-        self.cohp_plot.add_cohp_dict(self.cohp.all_cohps)
-        ax = self.cohp_plot.get_plot()
-        assert isinstance(ax, plt.Axes)
-        self.cohp_plot.save_plot(f"{self.tmp_path}/cohpplot.png")
-        assert os.path.isfile(f"{self.tmp_path}/cohpplot.png")
-        plt.close("all")

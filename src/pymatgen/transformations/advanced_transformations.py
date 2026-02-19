@@ -16,17 +16,17 @@ from monty.dev import requires
 from monty.fractions import lcm
 from monty.json import MSONable
 
-from pymatgen.analysis.adsorption import AdsorbateSiteFinder
-from pymatgen.analysis.bond_valence import BVAnalyzer
-from pymatgen.analysis.energy_models import SymmetryModel
-from pymatgen.analysis.ewald import EwaldSummation
-from pymatgen.analysis.local_env import MinimumDistanceNN
-from pymatgen.analysis.structure_prediction.substitution_probability import SubstitutionPredictor
 from pymatgen.command_line.enumlib_caller import EnumError, EnumlibAdaptor
 from pymatgen.command_line.mcsqs_caller import run_mcsqs
 from pymatgen.core import DummySpecies, Element, Species, Structure, get_el_sp
+from pymatgen.core.adsorption import AdsorbateSiteFinder
+from pymatgen.core.bond_valence import BVAnalyzer
+from pymatgen.core.energy_models import SymmetryModel
+from pymatgen.core.ewald import EwaldSummation
 from pymatgen.core.interface import GrainBoundaryGenerator
+from pymatgen.core.local_env import MinimumDistanceNN
 from pymatgen.core.structure_matcher import SpinComparator, StructureMatcher
+from pymatgen.core.structure_prediction.substitution_probability import SubstitutionPredictor
 from pymatgen.core.surface import SlabGenerator
 from pymatgen.electronic_structure.core import Spin
 from pymatgen.io.ase import AseAtomsAdaptor
@@ -623,7 +623,7 @@ class MagOrderingTransformation(AbstractTransformation):
                 to specify more complicated orderings, see documentation for
                 MagOrderParameterConstraint more details on usage
             energy_model: Energy model to rank the returned structures,
-                see :mod: `pymatgen.analysis.energy_models` for more information (note
+                see :mod: `pymatgen.core.energy_models` for more information (note
                 that this is not necessarily a physical energy). By default, returned
                 structures use SymmetryModel() which ranks structures from most
                 symmetric to least.

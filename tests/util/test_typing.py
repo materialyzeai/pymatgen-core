@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from pymatgen.core import Composition, DummySpecies, Element, Species
-from pymatgen.entries import Entry
+from pymatgen.core.entries import Entry
 from pymatgen.util.typing import CompositionLike, EntryLike, PathLike, SpeciesLike
 
 if TYPE_CHECKING:

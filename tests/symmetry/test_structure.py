@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from pymatgen.analysis.structure_analyzer import SpacegroupAnalyzer
 from pymatgen.core import Lattice, Structure
+from pymatgen.core.structure_analyzer import SpacegroupAnalyzer
 from pymatgen.symmetry.structure import SymmetrizedStructure
 from pymatgen.util.testing import MatSciTest
 

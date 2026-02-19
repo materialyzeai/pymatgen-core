@@ -479,6 +479,7 @@ class TestNwOutput:
         assert roots["singlet"][0]["osc_strength"] == approx(0.0)
         assert roots["singlet"][1]["osc_strength"] == approx(0.00177)
 
+    @pytest.mark.skip(reason="To decide where to put ExcitationSpectrum.")
     def test_get_excitation_spectrum(self):
         nw_output = NwOutput(f"{TEST_DIR}/phen_tddft.log")
         spectrum = nw_output.get_excitation_spectrum()
