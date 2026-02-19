@@ -12,13 +12,14 @@ import numpy as np
 from monty.serialization import loadfn
 from scipy.spatial import Delaunay
 
-from .local_env import VoronoiNN
-from .structure_matcher import StructureMatcher
 from pymatgen.core import Molecule, Structure
 from pymatgen.core.operations import SymmOp
 from pymatgen.core.surface import generate_all_slabs
 from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
 from pymatgen.util.coord import in_coord_list_pbc
+
+from .local_env import VoronoiNN
+from .structure_matcher import StructureMatcher
 
 if TYPE_CHECKING:
     from typing import Self

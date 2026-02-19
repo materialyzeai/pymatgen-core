@@ -47,7 +47,6 @@ def get_linear_assignment_solution(cost_matrix: np.ndarray):
             would match row 0 to column 1, row 1 to column 2 and row 2
             to column 0. Total cost would be c[0, 1] + c[1, 2] + c[2, 0].
     """
-
     orig_c = np.asarray(cost_matrix, dtype=float)
 
     n_rows, n_cols = orig_c.shape

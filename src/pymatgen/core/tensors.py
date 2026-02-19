@@ -19,10 +19,11 @@ from monty.json import MSONable
 from monty.serialization import loadfn
 from scipy.linalg import polar
 
-from .structure_matcher import StructureMatcher
 from pymatgen.core.lattice import Lattice
 from pymatgen.core.operations import SymmOp
 from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
+
+from .structure_matcher import StructureMatcher
 
 if TYPE_CHECKING:
     from collections.abc import Sequence

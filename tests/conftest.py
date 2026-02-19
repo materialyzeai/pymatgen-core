@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import os
-from pathlib import Path
 import tempfile
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 import pytest
@@ -24,4 +24,3 @@ def setup_teardown() -> Generator:
 @pytest.fixture(autouse=True)
 def test_files_dir() -> Path:
     return Path(__file__).parent.parent / "pymatgen-test-files"
-    

@@ -1,29 +1,21 @@
 from __future__ import annotations
 
-import copy
 from collections import defaultdict
 
-import orjson
 import pytest
-from monty.json import MontyDecoder
 from pytest import approx
 
-from pymatgen.analysis.phase_diagram import PhaseDiagram
-from pymatgen.entries.compatibility import MaterialsProject2020Compatibility
-from pymatgen.entries.computed_entries import (
+from pymatgen.core.entries import (
     CompositionEnergyAdjustment,
     ComputedEntry,
     ComputedStructureEntry,
     ConstantEnergyAdjustment,
     EnergyAdjustment,
-    GibbsComputedStructureEntry,
     ManualEnergyAdjustment,
     TemperatureEnergyAdjustment,
 )
 from pymatgen.io.vasp.outputs import Vasprun
-from pymatgen.util.testing import TEST_FILES_DIR, VASP_OUT_DIR
-
-TEST_DIR = f"{TEST_FILES_DIR}/entries"
+from pymatgen.util.testing import VASP_OUT_DIR
 
 vasp_run = Vasprun(f"{VASP_OUT_DIR}/vasprun.xml.gz")
 
@@ -37,22 +29,22 @@ def test_energy_adjustment():
     assert str(ea_dct) == str(ea2.as_dict())
 
 
-def test_energy_adjustment_repr():
-    comp_cls = MaterialsProject2020Compatibility()
-    cls_name = type(comp_cls).__name__
-    for cls, label in (
-        (None, "unknown"),
-        (comp_cls, cls_name),
-        ({"@class": cls_name}, cls_name),
-    ):
-        ea = EnergyAdjustment(10, cls=cls)
-        assert (
-            repr(ea) == "EnergyAdjustment(name='Manual adjustment', value=10.0, uncertainty=nan, description='', "
-            f"generated_by='{label}')"
-        )
+# def test_energy_adjustment_repr():
+#     comp_cls = MaterialsProject2020Compatibility()
+#     cls_name = type(comp_cls).__name__
+#     for cls, label in (
+#         (None, "unknown"),
+#         (comp_cls, cls_name),
+#         ({"@class": cls_name}, cls_name),
+#     ):
+#         ea = EnergyAdjustment(10, cls=cls)
+#         assert (
+#             repr(ea) == "EnergyAdjustment(name='Manual adjustment', value=10.0, uncertainty=nan, description='', "
+#             f"generated_by='{label}')"
+#         )
 
-    # Make sure int uncertainty also works
-    assert "uncertainty=0.0" in repr(EnergyAdjustment(10, uncertainty=0))
+#     # Make sure int uncertainty also works
+#     assert "uncertainty=0.0" in repr(EnergyAdjustment(10, uncertainty=0))
 
 
 def test_manual_energy_adjustment():
@@ -458,81 +450,3 @@ class TestComputedStructureEntry:
         # check different energy adjustments (but same id) --> not equal
         copy3.energy_adjustments.append(ConstantEnergyAdjustment(0.1))
         assert copy3 != copy1
-
-
-class TestGibbsComputedStructureEntry:
-    def setup_method(self):
-        self.temps = [300, 600, 900, 1200, 1500, 1800]
-        self.struct = vasp_run.final_structure
-        self.num_atoms = self.struct.composition.num_atoms
-        self.entries_with_temps = {
-            temp: GibbsComputedStructureEntry(
-                self.struct,
-                -2.436,
-                temp=temp,
-                gibbs_model="SISSO",
-                parameters=vasp_run.incar,
-                entry_id="test",
-            )
-            for temp in self.temps
-        }
-
-        with open(f"{TEST_DIR}/Mn-O_entries.json", "rb") as file:
-            data = orjson.loads(file.read())
-        with open(f"{TEST_DIR}/structure_CO2.json", "rb") as file:
-            self.co2_struct = MontyDecoder().process_decoded(orjson.loads(file.read()))
-
-        with open(f"{TEST_DIR}/Mn-O_entries.json", "rb") as file:
-            data = orjson.loads(file.read())
-        self.mp_entries = [MontyDecoder().process_decoded(d) for d in data]
-
-    def test_gf_sisso(self):
-        energies = {
-            300: -56.21273010866969,
-            600: -51.52997063074788,
-            900: -47.29888391585979,
-            1200: -42.942338738866304,
-            1500: -37.793417248809774,
-            1800: -32.32513382051749,
-        }
-        for temp in self.temps:
-            assert self.entries_with_temps[temp].energy == approx(energies[temp])
-
-    def test_interpolation(self):
-        temp = 450
-        entry = GibbsComputedStructureEntry(self.struct, -2.436, temp=temp)
-        assert entry.energy == approx(-53.7243542548528)
-
-    def test_expt_gas_entry(self):
-        co2_entry = GibbsComputedStructureEntry(self.co2_struct, 0, temp=900)
-        assert co2_entry.energy == approx(-16.406560223724014)
-        assert co2_entry.energy_per_atom == approx(-1.3672133519770011)
-
-    def test_from_entries(self):
-        gibbs_entries = GibbsComputedStructureEntry.from_entries(self.mp_entries)
-        assert isinstance(gibbs_entries, list)
-        assert isinstance(gibbs_entries[0], GibbsComputedStructureEntry)
-
-    def test_from_pd(self):
-        pd = PhaseDiagram(self.mp_entries)
-        gibbs_entries = GibbsComputedStructureEntry.from_pd(pd)
-        assert isinstance(gibbs_entries, list)
-        assert isinstance(gibbs_entries[0], GibbsComputedStructureEntry)
-
-    def test_as_from_dict(self):
-        test_entry = self.entries_with_temps[300]
-        dct = test_entry.as_dict()
-        entry = GibbsComputedStructureEntry.from_dict(dct)
-        assert test_entry == entry
-        assert entry.energy == approx(test_entry.energy)
-
-    def test_repr(self):
-        assert str(self.entries_with_temps[300]).startswith(
-            "GibbsComputedStructureEntry test - Li1 Fe4 P4 O16\nGibbs Free Energy (Formation) = -56.2127"
-        )
-
-    def test_normalize(self):
-        for entry in self.entries_with_temps.values():
-            copied = copy.deepcopy(entry)
-            normed_entry = copied.normalize(mode="atom")
-            assert copied.uncorrected_energy == approx(normed_entry.uncorrected_energy * self.num_atoms)

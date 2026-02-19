@@ -27,7 +27,6 @@ from pymatgen.core import Lattice, Molecule, PeriodicSite, Structure
 from pymatgen.core.structure import FunctionalGroups
 from pymatgen.util.coord import lattice_points_in_supercell
 
-
 try:
     import igraph
 except ImportError:
@@ -884,7 +883,7 @@ class StructureGraph(MSONable):
             label = f"{self.structure[node].specie}({node})" if node_labels else ""
 
             # use standard color scheme for nodes
-            
+
             c = EL_COLORS[color_scheme].get(str(self.structure[node].specie.symbol), [0, 0, 0])
 
             # get contrasting font color

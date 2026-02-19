@@ -19,7 +19,7 @@ from monty.io import zopen
 from monty.json import MSONable
 
 from pymatgen.core import Element, Lattice, PeriodicSite, Structure
-from pymatgen.entries.computed_entries import ComputedStructureEntry
+from pymatgen.core.entries import ComputedStructureEntry
 from pymatgen.io.core import ParseError
 
 if TYPE_CHECKING:

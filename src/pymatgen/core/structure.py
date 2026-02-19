@@ -1599,7 +1599,7 @@ class IStructure(SiteCollection, MSONable):
             anonymous (bool): Whether to use anonymous structure matching which allows distinct
                 species in one structure to map to another.
             **kwargs: Same **kwargs as in
-                pymatgen.analysis.structure_matcher.StructureMatcher.
+                pymatgen.core.structure_matcher.StructureMatcher.
 
         Returns:
             bool: True if the structures are similar under some affine transformation.

@@ -17,12 +17,13 @@ from monty.fractions import lcm
 from scipy.cluster.hierarchy import fcluster, linkage
 from scipy.spatial.distance import squareform
 
-from .adsorption import AdsorbateSiteFinder
 from pymatgen.core.lattice import Lattice
 from pymatgen.core.sites import PeriodicSite, Site
 from pymatgen.core.structure import Structure
 from pymatgen.core.surface import Slab
 from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
+
+from .adsorption import AdsorbateSiteFinder
 
 if TYPE_CHECKING:
     from collections.abc import Callable, Sequence
@@ -2631,7 +2632,6 @@ class Interface(Structure):
             tolerance: tolerance for "uniqueness" for shifts in Cartesian unit
                 This is usually Angstroms.
         """
-        
         substrate, film = self.substrate, self.film
 
         substrate_surface_sites = np.dot(

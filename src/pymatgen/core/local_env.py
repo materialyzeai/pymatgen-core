@@ -23,10 +23,11 @@ from monty.serialization import loadfn
 from ruamel.yaml import YAML
 from scipy.spatial import Voronoi
 
+from pymatgen.core import Element, IStructure, PeriodicNeighbor, PeriodicSite, Site, Species, Structure
+
 from .bond_valence import BV_PARAMS, BVAnalyzer
 from .graphs import StructureGraph
 from .molecule_structure_comparator import CovalentRadius
-from pymatgen.core import Element, IStructure, PeriodicNeighbor, PeriodicSite, Site, Species, Structure
 
 try:
     from openbabel import openbabel

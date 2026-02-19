@@ -37,7 +37,7 @@ from pymatgen.electronic_structure.bandstructure import (
 )
 from pymatgen.electronic_structure.core import Magmom, Orbital, OrbitalType, Spin
 from pymatgen.electronic_structure.dos import CompleteDos, Dos
-from pymatgen.entries.computed_entries import ComputedEntry, ComputedStructureEntry
+from pymatgen.core.entries import ComputedEntry, ComputedStructureEntry
 from pymatgen.io.common import VolumetricData as BaseVolumetricData
 from pymatgen.io.core import ParseError
 from pymatgen.io.vasp.inputs import Incar, Kpoints, KpointsSupportedModes, Poscar, Potcar
