@@ -418,9 +418,12 @@ class LammpsData(MSONable):
                 "Dihedral Coeffs",
                 "Improper Coeffs",
             ]:
-                dfs: list[pd.DataFrame] = [val.iloc[i : i + 1] for i in range(len(val.index))]
+                # Split into one-row DataFrames (avoid np.array_split: it returns ndarrays)
+                dfs = [val.iloc[i : i + 1] for i in range(len(val))]
                 df_string = ""
                 for idx, df in enumerate(dfs):
+                    if not isinstance(df, pd.DataFrame):
+                        df = pd.DataFrame(np.atleast_2d(df), columns=val.columns)
                     if isinstance(df.iloc[0]["coeff1"], str):
                         try:
                             formatters = {
