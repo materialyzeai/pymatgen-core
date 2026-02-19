@@ -109,7 +109,7 @@ class AdsorbateSiteFinder:
             min_vacuum_size (float): min vacuum size for slab generation
             max_normal_search (int): max normal search for slab generation
             center_slab (bool): whether to center slab in slab generation
-            selective dynamics (bool): whether to assign surface sites
+            selective_dynamics (bool): whether to assign surface sites
                 to selective dynamics
             undercoord_threshold (float): threshold of "undercoordation"
                 to use for the assignment of surface sites. Default is
@@ -486,6 +486,8 @@ class AdsorbateSiteFinder:
             repeat (3-tuple or list): repeat argument for supercell generation
             min_lw (float): minimum length and width of the slab, only used
                 if repeat is None
+            translate (bool): flag on whether or not to translate adsorbate
+                to the adsorption site
             reorient (bool): flag on whether or not to reorient adsorbate
                 along the miller index
             find_args (dict): dictionary of arguments to be passed to the
@@ -656,6 +658,7 @@ def plot_slab(
         window (float): window for setting the axes limits, is essentially
             a fraction of the unit cell limits
         draw_unit_cell (bool): flag indicating whether or not to draw cell
+        adsorption_sites (bool): whether to plot adsorption sites
         decay (float): how the alpha-value decays along the z-axis
         inverse (bool): invert z axis to plot opposite surface
     """

@@ -14,43 +14,25 @@ entries, such as grouping entries by structure.
 from __future__ import annotations
 
 import abc
-import collections
-import collections.abc
-import csv
-import itertools
 import json
-import logging
 import math
-import multiprocessing as mp
 import os
-import re
 import warnings
 from abc import ABC, abstractmethod
-from collections import defaultdict
-from datetime import UTC, datetime
-from itertools import combinations
 from typing import TYPE_CHECKING, cast
 
 import numpy as np
 import orjson
 from monty.json import MontyDecoder, MontyEncoder, MSONable
-from scipy.interpolate import interp1d
 from uncertainties import ufloat
-
-from pymatgen.util.due import Doi, due
 
 from .composition import Composition
 from .periodic_table import Element
-from .structure_matcher import SpeciesComparator, StructureMatcher
 
 if TYPE_CHECKING:
-
-    from collections.abc import Iterable
     from typing import Literal, Self
 
-    from pymatgen.analysis.phase_diagram import PhaseDiagram
     from pymatgen.core import DummySpecies, Element, Species, Structure
-    from pymatgen.util.typing import SpeciesLike
 
 __author__ = "Ryan Kingsbury, Matt McDermott, Shyue Ping Ong, Anubhav Jain"
 __copyright__ = "Copyright 2011-2020, The Materials Project"
@@ -61,10 +43,6 @@ with open(os.path.join(os.path.dirname(__file__), "data/g_els.json"), "rb") as f
     G_ELEMS = orjson.loads(file.read())
 with open(os.path.join(os.path.dirname(__file__), "data/nist_gas_gf.json"), "rb") as file:
     G_GASES = orjson.loads(file.read())
-
-
-
-
 
 
 __author__ = "Shyue Ping Ong, Anubhav Jain, Ayush Gupta"
@@ -851,4 +829,3 @@ class ComputedStructureEntry(ComputedEntry):
             data=self.data,
             entry_id=self.entry_id,
         )
-

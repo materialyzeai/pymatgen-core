@@ -275,6 +275,7 @@ class StructureGraph(MSONable):
     @classmethod
     @deprecated(from_edges, "Deprecated on 2024-03-29.", deadline=(2025, 3, 20))
     def with_edges(cls, *args, **kwargs):
+        """Deprecated method. Use from_edges instead."""
         return cls.from_edges(*args, **kwargs)
 
     @classmethod

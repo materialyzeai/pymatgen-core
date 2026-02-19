@@ -239,8 +239,9 @@ class Strain(SquareTensor):
 
 def convert_strain_to_deformation(strain, shape: Literal["upper", "lower", "symmetric"]):
     """
-    This function converts a strain to a deformation gradient that will.
-    produce that strain. Supports three methods:
+    Convert a strain to a deformation gradient that will produce that strain.
+
+    Supports three methods:
 
     Args:
         strain (3x3 array-like): strain matrix

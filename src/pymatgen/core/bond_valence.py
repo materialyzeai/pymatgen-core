@@ -468,6 +468,7 @@ def add_oxidation_state_by_site_fraction(structure: Structure, oxidation_states:
     Add oxidation states to a structure by fractional site.
 
     Args:
+        structure (Structure): Structure to which oxidation states are added.
         oxidation_states (list[list[int]]): List of list of oxidation states for each
             site fraction for each site.
             e.g. [[2, 4], [3], [-2], [-2], [-2]]

@@ -17,7 +17,7 @@ from monty.json import MontyDecoder, MontyEncoder
 from numpy.testing import assert_allclose, assert_array_equal
 from pytest import approx
 
-from pymatgen.core import SETTINGS, Composition, Element, Lattice, Species
+from pymatgen.core import Composition, Element, Lattice, Species
 from pymatgen.core.operations import SymmOp
 from pymatgen.core.structure import (
     IMolecule,
@@ -1049,7 +1049,7 @@ class TestStructure(MatSciTest):
         assert "bulk_modulus_vrh" in d
 
     @pytest.mark.skipif(
-        True or SETTINGS.get("PMG_MAPI_KEY", "") == "",  # Skip for now. TODO: Fix this.
+        condition=True,  # Skip for now. TODO: Fix this.
         reason="PMG_MAPI_KEY environment variable not set or MP API is down. This is also the case in a PR.",
     )
     def test_from_id(self):

@@ -183,6 +183,9 @@ class MoleculeStructureComparator(MSONable):
                 The index should start from 0.
             priority_cap: The ratio of the elongation of the bond to be
                 acknowledged for the priority bonds.
+            ignore_ionic_bond (bool): Whether to ignore ionic bonds.
+            bond_13_cap (float): The ratio of the elongation of the 1-3 bond to be
+                acknowledged.
         """
         self.bond_length_cap = bond_length_cap
         self.covalent_radius = covalent_radius
@@ -206,7 +209,8 @@ class MoleculeStructureComparator(MSONable):
 
     @staticmethod
     def get_13_bonds(priority_bonds):
-        """
+        """Get the 1-3 bonds implied by the given priority bonds.
+
         Args:
             priority_bonds (list[tuple]): 12 bonds
 

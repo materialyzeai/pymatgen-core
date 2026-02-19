@@ -244,7 +244,7 @@ class VoronoiConnectivity:
         """
         Args:
             structure (Structure): Input structure
-            cutoff (float) Cutoff distance.
+            cutoff (float): Cutoff distance.
         """
         self.cutoff = cutoff
         self.structure = structure

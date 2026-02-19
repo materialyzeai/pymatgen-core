@@ -839,9 +839,9 @@ class ElasticTensorExpansion(TensorCollection):
 # TODO: abstract this for other tensor fitting procedures
 def diff_fit(strains, stresses, eq_stress=None, order=2, tol: float = 1e-10):
     """
-    Nth order elastic constant fitting function based on.
-    central-difference derivatives with respect to distinct
-    strain states. The algorithm is summarized as follows:
+    Nth order elastic constant fitting function based on central-difference derivatives.
+
+    The algorithm is summarized as follows:
 
     1. Identify distinct strain states as sets of indices
        for which nonzero strain values exist, typically

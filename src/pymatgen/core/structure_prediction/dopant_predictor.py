@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import warnings
+from typing import Any
 
 import numpy as np
 
@@ -127,7 +128,7 @@ def get_dopants_from_shannon_radii(bonded_structure, num_dopants=5, match_oxi_si
 
 def _get_dopants(substitutions, num_dopants, match_oxi_sign) -> dict:
     """Utility method to get n- and p-type dopants from a list of substitutions."""
-    dopants = {k: [] for k in ("n_type", "p_type")}
+    dopants: dict[str, list[dict[str, Any]]] = {k: [] for k in ("n_type", "p_type")}
     for k, dop in dopants.items():
         for pred in substitutions:
             if (

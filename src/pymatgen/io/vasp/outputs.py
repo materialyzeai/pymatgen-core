@@ -28,6 +28,7 @@ from monty.re import regrep
 from tqdm import tqdm
 
 from pymatgen.core import Composition, Element, Lattice, Structure
+from pymatgen.core.entries import ComputedEntry, ComputedStructureEntry
 from pymatgen.core.trajectory import Trajectory
 from pymatgen.core.units import unitized
 from pymatgen.electronic_structure.bandstructure import (
@@ -37,7 +38,6 @@ from pymatgen.electronic_structure.bandstructure import (
 )
 from pymatgen.electronic_structure.core import Magmom, Orbital, OrbitalType, Spin
 from pymatgen.electronic_structure.dos import CompleteDos, Dos
-from pymatgen.core.entries import ComputedEntry, ComputedStructureEntry
 from pymatgen.io.common import VolumetricData as BaseVolumetricData
 from pymatgen.io.core import ParseError
 from pymatgen.io.vasp.inputs import Incar, Kpoints, KpointsSupportedModes, Poscar, Potcar
