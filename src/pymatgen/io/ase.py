@@ -54,6 +54,18 @@ StructOrMolT = TypeVar("StructOrMolT", bound=Structure | Molecule)
 class MSONAtoms(Atoms, MSONable):
     """A custom subclass of ASE Atoms that is MSONable, including `.as_dict()` and `.from_dict()` methods."""
 
+    def __init__(self, *args, **kwargs):
+        """
+        Initialize the MSONAtoms object.
+
+        Args:
+            *args: Arguments to pass to the ASE Atoms constructor.
+            **kwargs: Keyword arguments to pass to the ASE Atoms constructor.
+        """
+        super().__init__(*args, **kwargs)
+        if getattr(self, "info", None) is None:
+            self.info = {}
+
     def as_dict(self: Atoms) -> dict[str, Any]:
         # Normally, we would want to this to be a wrapper around atoms.todict() with @module and
         # @class key-value pairs inserted. However, atoms.todict()/atoms.fromdict() is not meant
