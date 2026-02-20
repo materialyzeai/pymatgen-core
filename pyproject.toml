@@ -90,7 +90,7 @@ Pypi = "https://pypi.org/project/pymatgen"
 
 [project.optional-dependencies]
 abinit = ["netcdf4>=1.7.2"]
-ase = ["ase>=3.23.0"]
+ase = ["ase>=3.27.0"]
 # TODO: `fdint` seems not maintained anymore and cannot be installed
 # with `uv` on Python 3.10 as build-time dependency was not declared
 # https://github.com/scott-maddox/fdint/issues/21
@@ -103,7 +103,7 @@ mlp = ["matgl>=2.0.4 ; python_version<'3.13'"]
 numba = ["numba>=0.55"]
 optional = [
     "netcdf4>=1.7.2",
-    "ase>=3.23.0",
+    "ase>=3.27.0",
     "beautifulsoup4",
     #"pymatgen-analysis-alloys",
     # PR4347: BoltzTraP2 needs to bump cmake version for spglib build

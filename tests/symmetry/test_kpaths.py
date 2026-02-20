@@ -15,6 +15,8 @@ except ImportError:
     get_path = None
 
 TEST_DIR = f"{TEST_FILES_DIR}/electronic_structure/bandstructure"
+if get_path is None:
+    pytest.skip("seekpath not found", allow_module_level=True)
 
 
 class TestHighSymmKpath(MatSciTest):

@@ -30,7 +30,7 @@ except ImportError:
 
     class Atoms:  # type: ignore[no-redef]
         def __init__(self, *args, **kwargs):
-            raise NO_ASE_ERR
+            pass
 
 
 if TYPE_CHECKING:

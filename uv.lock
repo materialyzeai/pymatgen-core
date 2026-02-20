@@ -3521,8 +3521,8 @@ test = [
 
 [package.metadata]
 requires-dist = [
-    { name = "ase", marker = "extra == 'ase'", specifier = ">=3.23.0" },
-    { name = "ase", marker = "extra == 'optional'", specifier = ">=3.23.0" },
+    { name = "ase", marker = "extra == 'ase'", specifier = ">=3.27.0" },
+    { name = "ase", marker = "extra == 'optional'", specifier = ">=3.27.0" },
     { name = "beautifulsoup4", marker = "extra == 'optional'" },
     { name = "bibtexparser" },
     { name = "chemview", marker = "extra == 'optional'", specifier = ">=0.6" },
