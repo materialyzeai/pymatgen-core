@@ -113,4 +113,8 @@ jobs:
           PMG_TEST_FILES_DIR: "${{ github.workspace }}/pymatgen-test-files"
           PYTHONWARNDEFAULTENCODING: "true" # PEP 597: Enable optional EncodingWarning
         run: |
-          pytest tests -n auto
+          pytest --cov=pymatgen --cov-report=xml tests --color=yes
+      - name: Codecov
+        uses: codecov/codecov-action@v5
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
