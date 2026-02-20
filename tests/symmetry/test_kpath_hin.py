@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import sys
+
 import pytest
 from pytest import approx
 
@@ -8,7 +10,9 @@ from pymatgen.core.structure import Structure
 from pymatgen.symmetry.kpath import KPathSeek
 from pymatgen.util.testing import MatSciTest
 
-pytest.importorskip("seekpath", reason="seekpath not installed")
+seekpath = pytest.importorskip("seekpath", reason="seekpath not installed")
+if not sys.platform.startswith("win"):
+    pytest.skip("seekpath not supported on Windows", allow_module_level=True)
 
 
 class TestKPathSeek(MatSciTest):
