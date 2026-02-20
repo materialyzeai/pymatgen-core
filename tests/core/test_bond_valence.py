@@ -3,8 +3,8 @@ from __future__ import annotations
 import pytest
 from pytest import approx
 
+from pymatgen.analysis.bond_valence import BVAnalyzer, calculate_bv_sum, calculate_bv_sum_unordered
 from pymatgen.core import Composition, Species, Structure
-from pymatgen.core.bond_valence import BVAnalyzer, calculate_bv_sum, calculate_bv_sum_unordered
 from pymatgen.util.testing import TEST_FILES_DIR, MatSciTest
 
 TEST_DIR = f"{TEST_FILES_DIR}/core/bond_valence"
