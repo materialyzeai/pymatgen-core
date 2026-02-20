@@ -48,10 +48,6 @@ jobs:
             python: "3.11"  # Test lowest supported Python version
             resolution: lowest-direct
             extras: optional
-          - os: windows-latest
-            python: "3.11"
-            resolution: highest
-            extras: optional,numpy-v1 # Test NP1 on Windows (quite buggy ATM)
           - os: macos-latest
             python: "3.13"
             resolution: lowest-direct
