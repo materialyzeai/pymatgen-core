@@ -51,10 +51,10 @@ jobs:
           - os: macos-latest
             python: "3.13"
             resolution: lowest-direct
+            extras: optional
           - os: ubuntu-latest
             python: "3.11"  # Test highest supported Python version
             resolution: lowest-direct
-            extras: optional
           - os: ubuntu-latest
             python: "3.14"  # Test highest supported Python version
             resolution: highest
