@@ -1,18 +1,17 @@
 <h1 align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/materialsproject/pymatgen/raw/master/docs/assets/pymatgen-white.svg">
-    <img alt="Logo" src="https://github.com/materialsproject/pymatgen/raw/master/docs/assets/pymatgen.svg"
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/materialyzeai/pymatgen-core/raw/master/docs/assets/pymatgen-white.svg">
+    <img alt="Logo" src="https://github.com/materialyzeai/pymatgen-core/raw/master/docs/assets/pymatgen.svg"
 height="70">
   </picture>
 </h1>
 
 <h4 align="center">
 
-[![CI Status](https://github.com/materialsproject/pymatgen/actions/workflows/test.yml/badge.svg)](https://github.com/materialsproject/pymatgen/actions/workflows/test.yml)
-[![codecov](https://codecov.io/gh/materialsproject/pymatgen/branch/master/graph/badge.svg?token=XC47Un1LV2)](https://codecov.io/gh/materialsproject/pymatgen)
-[![PyPI Downloads](https://img.shields.io/pypi/dm/pymatgen?logo=pypi&logoColor=white&color=blue&label=PyPI)](https://pypi.org/project/pymatgen)
-[![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/pymatgen?logo=condaforge&color=blue&label=Conda)](https://anaconda.org/conda-forge/pymatgen)
-[![Requires Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue.svg?logo=python&logoColor=white)](https://python.org/downloads)
+[![CI Status](https://github.com/materialyzeai/pymatgen-core/actions/workflows/test.yml/badge.svg)](https://github.com/materialyzeai/pymatgen-core/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/materialyzeai/pymatgen-core/branch/master/graph/badge.svg?token=XC47Un1LV2)](https://codecov.io/gh/materialyzeai/pymatgen-core)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/pymatgen-core?logo=pypi&logoColor=white&color=blue&label=PyPI)](https://pypi.org/project/pymatgen-core)
+[![Requires Python 3.11+](https://img.shields.io/badge/Python-3.11+-blue.svg?logo=python&logoColor=white)](https://python.org/downloads)
 [![Paper](https://img.shields.io/badge/J.ComMatSci-2012.10.028-blue?logo=elsevier&logoColor=white)](https://doi.org/10.1016/j.commatsci.2012.10.028)
 
 </h4>
@@ -34,9 +33,9 @@ Pymatgen is free to use. However, we also welcome your help to improve this libr
 - For questions that are not bugs or feature requests, please use the `pymatgen` [MatSci forum](https://matsci.org/pymatgen) or open a [GitHub discussion].
 - [`matgenb`](https://github.com/materialsvirtuallab/matgenb#introduction) provides some example Jupyter notebooks that demonstrate how to use `pymatgen` functionality.
 
-[pull request]: https://github.com/materialsproject/pymatgen/pulls
-[github issue]: https://github.com/materialsproject/pymatgen/issues
-[github discussion]: https://github.com/materialsproject/pymatgen/discussions
+[pull request]: https://github.com/materialyzeai/pymatgen-core/pulls
+[github issue]: https://github.com/materialyzeai/pymatgen-core/issues
+[github discussion]: https://github.com/materialyzeai/pymatgen-core/discussions
 
 ## Why use `pymatgen`?
 
@@ -72,14 +71,14 @@ pip install pymatgen
 If you'd like to use the latest unreleased changes on the main branch, you can install directly from GitHub:
 
 ```sh
-pip install -U git+https://github.com/materialsproject/pymatgen
+pip install -U git+https://github.com/materialyzeai/pymatgen-core
 ```
 
 Some extra functionality (e.g., generation of POTCARs) does require additional setup (see the [`pymatgen` docs]).
 
 ## Change Log
 
-See [GitHub releases](https://github.com/materialsproject/pymatgen/releases), [`docs/CHANGES.md`](docs/CHANGES.md) or [commit history](https://github.com/materialsproject/pymatgen/commits/master) in increasing order of details.
+See [GitHub releases](https://github.com/materialyzeai/pymatgen-core/releases), [`docs/CHANGES.md`](docs/CHANGES.md) or [commit history](https://github.com/materialyzeai/pymatgen-core/commits/master) in increasing order of details.
 
 ## Using pymatgen
 
