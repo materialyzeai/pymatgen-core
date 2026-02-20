@@ -18,6 +18,7 @@ import networkx.algorithms.isomorphism as iso
 import numpy as np
 from monty.dev import deprecated
 from monty.json import MSONable
+from monty.serialization import loadfn
 from networkx.drawing.nx_agraph import write_dot
 from networkx.readwrite import json_graph
 from scipy.spatial import KDTree
@@ -27,6 +28,8 @@ from pymatgen.core import Lattice, Molecule, PeriodicSite, Structure
 from pymatgen.core.structure import FunctionalGroups
 from pymatgen.util.coord import lattice_points_in_supercell
 
+MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
+EL_COLORS = loadfn(f"{MODULE_DIR}/ElementColorSchemes.yaml")
 try:
     import igraph
 except ImportError:
@@ -879,7 +882,7 @@ class StructureGraph(MSONable):
         """
         if not which(algo):
             raise RuntimeError("StructureGraph graph drawing requires GraphViz binaries to be in the path.")
-        from pymatgen.vis.structure_vtk import EL_COLORS
+
         # Developer note: NetworkX also has methods for drawing
         # graphs using matplotlib, these also work here. However,
         # a dedicated tool like GraphViz allows for much easier
