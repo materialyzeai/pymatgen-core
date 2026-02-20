@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 from pytest import approx
 
-from pymatgen.analysis.molecule_matcher import (
+from pymatgen.core.molecule_matcher import (
     BruteForceOrderMatcher,
     GeneticOrderMatcher,
     HungarianOrderMatcher,
