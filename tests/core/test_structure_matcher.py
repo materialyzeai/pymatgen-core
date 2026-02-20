@@ -8,7 +8,8 @@ from monty.json import MontyDecoder
 from numpy.testing import assert_allclose
 from pytest import approx
 
-from pymatgen.analysis.structure_matcher import (
+from pymatgen.core import Element, Lattice, Structure, SymmOp
+from pymatgen.core.structure_matcher import (
     ElementComparator,
     FrameworkComparator,
     OccupancyComparator,
@@ -16,11 +17,10 @@ from pymatgen.analysis.structure_matcher import (
     StructureMatcher,
     get_linear_assignment_solution,
 )
-from pymatgen.core import Element, Lattice, Structure, SymmOp
 from pymatgen.util.coord import find_in_coord_list_pbc
 from pymatgen.util.testing import TEST_FILES_DIR, VASP_IN_DIR, MatSciTest
 
-TEST_DIR = f"{TEST_FILES_DIR}/analysis/structure_matcher"
+TEST_DIR = f"{TEST_FILES_DIR}/core/structure_matcher"
 
 
 class TestLinearAssignment:
