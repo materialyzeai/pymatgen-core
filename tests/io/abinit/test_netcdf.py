@@ -13,10 +13,7 @@ from pymatgen.io.abinit import EtsfReader
 from pymatgen.io.abinit.netcdf import AbinitHeader
 from pymatgen.util.testing import TEST_FILES_DIR, MatSciTest
 
-try:
-    import netCDF4
-except ImportError:
-    netCDF4 = None
+netCDF4 = pytest.importorskip("netCDF4")
 
 TEST_DIR = f"{TEST_FILES_DIR}/io/abinit"
 
@@ -28,7 +25,6 @@ class TestEtsfReader(MatSciTest):
         for formula in formulas:
             dct[formula] = f"{TEST_DIR}/{formula}_GSR.nc"
 
-    @pytest.mark.skipif(netCDF4 is None or True, reason="Requires Netcdf4")
     def test_read_si2(self):
         path = self.GSR_paths["Si2"]
 
@@ -83,7 +79,6 @@ class TestEtsfReader(MatSciTest):
             # xc = data.read_abinit_xcfunc()
             # assert xc == "LDA"
 
-    @pytest.mark.skipif(netCDF4 is None, reason="Requires NetCDF4")
     @pytest.mark.xfail(
         sys.platform.startswith("linux") and os.getenv("CI") and netCDF4.__version__ >= "1.6.5",
         reason="Fails with netCDF4 >= 1.6.5 on Ubuntu CI",
